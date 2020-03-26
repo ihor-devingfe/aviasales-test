@@ -1,1 +1,31 @@
-<p>ticket works!</p>
+<table class="ticket">
+  <tr>
+    <td colspan="2" class="price">{{ticket.price | appCurrency}}</td>
+    <td><img src="{{CDN + ticket.carrier + '.png'}}" alt="{{ticket.carrier}} logo"></td>
+  </tr>
+
+  <tr>
+    <th>{{ticket.segments[0].destination}} - {{ticket.segments[1].destination}}</th>
+    <th>В пути</th>
+    <th>{{ticket.segments[0].stops.length | i18nPlural : pluralMap}}</th>
+  </tr>
+  <tr>
+    <td>{{ticket.segments[0].date | date: 'HH:mm'}} -
+      {{getArrivalTime(0) | date: 'HH:mm'}}</td>
+    <td>{{ticket.segments[0].duration | appDuration}}</td>
+    <td>{{ticket.segments[0].stops | appJoin}}</td>
+  </tr>
+
+  <tr>
+    <th>{{ticket.segments[1].destination}} - {{ticket.segments[1].destination}}</th>
+    <th>В пути</th>
+    <th>{{ticket.segments[1].stops.length | i18nPlural : pluralMap}}</th>
+  </tr>
+  <tr>
+    <td>{{ticket.segments[1].date | date: 'HH:mm'}} -
+      {{getArrivalTime(1) | date: 'HH:mm'}}</td>
+    <td>{{ticket.segments[1].duration | appDuration}}</td>
+    <td>{{ticket.segments[1].stops | appJoin}}</td>
+  </tr>
+</table>
+

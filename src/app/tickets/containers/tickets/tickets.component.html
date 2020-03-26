@@ -1,7 +1,17 @@
-<app-transfer-filter></app-transfer-filter>
+<div class="tickets">
+  <div class="filter">
+    <app-transfer-filter></app-transfer-filter>
+  </div>
 
-<app-ticket></app-ticket>
-<app-ticket></app-ticket>
-<app-ticket></app-ticket>
-<app-ticket></app-ticket>
-<app-ticket></app-ticket>
+  <div class="sorting">
+    <app-sorting></app-sorting>
+  </div>
+
+  <ul class="list">
+    <li *ngFor="let ticket of tickets | async">
+      <app-ticket
+        [ticket]="ticket"
+      ></app-ticket>
+    </li>
+  </ul>
+</div>

@@ -1,10 +1,10 @@
 .tickets {
-  padding-top: 30px;
+  padding-top: 27px;
   display: grid;
   grid-template-areas:
     "filter sorting"
     "filter list";
-  grid-template-columns: 232px 1fr;
+  grid-template-columns: 31% 1fr;
   grid-gap: 20px;
 }
 

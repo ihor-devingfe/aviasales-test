@@ -12,7 +12,7 @@
   <tr>
     <td>{{ticket.segments[0].date | date: 'HH:mm'}} -
       {{getArrivalTime(0) | date: 'HH:mm'}}</td>
-    <td>{{ticket.segments[0].duration | appDuration}}</td>
+    <td class="duration">{{ticket.segments[0].duration | appDuration}}</td>
     <td>{{ticket.segments[0].stops | appJoin}}</td>
   </tr>
 
@@ -24,7 +24,7 @@
   <tr>
     <td>{{ticket.segments[1].date | date: 'HH:mm'}} -
       {{getArrivalTime(1) | date: 'HH:mm'}}</td>
-    <td>{{ticket.segments[1].duration | appDuration}}</td>
+    <td class="duration">{{ticket.segments[1].duration | appDuration}}</td>
     <td>{{ticket.segments[1].stops | appJoin}}</td>
   </tr>
 </table>

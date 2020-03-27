@@ -1,0 +1,51 @@
+tr {
+  &:first-child td {
+    padding-bottom: 12px;
+  }
+
+  &:not(:first-child) th,
+  &:not(:first-child) td {
+    width: 34%;
+  }
+
+  &:nth-child(3) td {
+    padding-bottom: 6px;
+  }
+}
+
+th,
+td {
+  padding: 0;
+  font-weight: 600;
+}
+
+th {
+  font-size: 12px;
+  line-height: 18px;
+  color: #A0B0B9;
+}
+
+td {
+  font-size: 14px;
+  line-height: 21px;
+  color: #4A4A4A;
+}
+
+.ticket {
+  padding: 20px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.price {
+  font-size: 24px;
+  line-height: 24px;
+  color: #2196F3;
+}
+
+.duration {
+  text-transform: lowercase;
+}

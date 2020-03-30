@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {TicketsRoutingModule} from './tickets.routing-module';
 import {TicketsComponent} from './containers/tickets/tickets.component';
@@ -18,9 +19,10 @@ import {SharedModule} from '../shared/shared.module';
   imports: [
     CommonModule,
     TicketsRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
-  providers: []
 })
 export class TicketsModule {
 }

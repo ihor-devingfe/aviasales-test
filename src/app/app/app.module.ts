@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {registerLocaleData} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 import ruLocale from '@angular/common/locales/ru';
 
 import {AppComponent} from './containers/app/app.component';
@@ -17,9 +18,11 @@ registerLocaleData(ruLocale, 'ru');
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedModule
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

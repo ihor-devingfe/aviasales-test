@@ -4,7 +4,6 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'appDuration'
 })
 export class AppDurationPipe implements PipeTransform {
-
   transform(minutes: number): string {
     if (minutes >= 60) {
       const hours = Math.trunc(minutes / 60);
@@ -21,5 +20,4 @@ export class AppDurationPipe implements PipeTransform {
       return `${minutes}мин`;
     }
   }
-
 }

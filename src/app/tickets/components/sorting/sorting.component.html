@@ -1,1 +1,7 @@
-<p>sorting works!</p>
+<div class="sorting">
+  <input class="visually-hidden" type="radio" name="sorting" value="price" id="price" checked (change)="sort($event)">
+  <label for="price">Самый дешевый</label>
+
+  <input class="visually-hidden" type="radio" name="sorting" value="speed" id="speed" (change)="sort($event)">
+  <label for="speed">Самый быстрый</label>
+</div>

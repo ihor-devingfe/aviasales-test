@@ -20,16 +20,6 @@ label {
 }
 
 input[type="checkbox"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
 
   &:focus + span {
     outline: #4d90fe auto 1px;
@@ -61,9 +51,9 @@ span {
 
   &::after {
     position: absolute;
+    top: 5px;
     left: 4px;
     display: none;
-    align-self: center;
     width: 12px;
     height: 8px;
     background-image: url("/assets/mark.svg");

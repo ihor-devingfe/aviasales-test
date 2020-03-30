@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 import {Ticket} from '../../../core/models/ticket.model';
 
@@ -17,7 +17,7 @@ const pluralMap = {
   styleUrls: ['./ticket.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketComponent implements OnInit {
+export class TicketComponent {
   @Input() ticket: Ticket;
   pluralMap = pluralMap;
   CDN = 'http://pics.avs.io/99/36/';
@@ -29,11 +29,4 @@ export class TicketComponent implements OnInit {
 
     return new Date(departureTime + flightTime).toISOString();
   }
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }

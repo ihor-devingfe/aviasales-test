@@ -4,7 +4,6 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'appCurrency'
 })
 export class AppCurrencyPipe implements PipeTransform {
-
   transform(price: number): string {
     const arr = price.toString(10).split('');
 
@@ -14,5 +13,4 @@ export class AppCurrencyPipe implements PipeTransform {
 
     return arr.join('') + ' P';
   }
-
 }

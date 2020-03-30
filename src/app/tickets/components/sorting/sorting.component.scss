@@ -1,0 +1,39 @@
+input[type="radio"] {
+  &:checked + label {
+    background-color: #2196F3;
+    color: #fff;
+  }
+}
+
+label {
+  box-sizing: border-box;
+  flex: 1 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #DFE5EC;
+  cursor: pointer;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #F1FCFF;
+  }
+
+  &:first-of-type {
+    border-radius: 5px 0 0 5px;
+  }
+
+  &:last-of-type {
+    border-radius: 0 5px 5px 0;
+  }
+}
+
+.sorting {
+  display: flex;
+  height: 50px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+}

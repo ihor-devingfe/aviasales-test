@@ -1,14 +1,18 @@
 <div class="tickets">
   <aside class="filter">
-    <app-transfer-filter></app-transfer-filter>
+    <app-transfer-filter
+      (filtering)="onFiltering($event)"
+    ></app-transfer-filter>
   </aside>
 
   <div class="sorting">
-    <app-sorting></app-sorting>
+    <app-sorting
+      (sorting)="onSorting($event)"
+    ></app-sorting>
   </div>
 
   <ul class="list">
-    <li *ngFor="let ticket of tickets | async">
+    <li *ngFor="let ticket of tickets$ | async">
       <app-ticket
         [ticket]="ticket"
       ></app-ticket>

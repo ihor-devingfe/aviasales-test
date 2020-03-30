@@ -1,3 +1,9 @@
+li {
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
 .tickets {
   padding-top: 27px;
   display: grid;

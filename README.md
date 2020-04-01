@@ -1,27 +1,37 @@
-# AviasalesTest
+# Aviasales Test Task
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+A simple flights search web-application.
 
-## Development server
+Task repository: \
+https://github.com/KosyanMedia/test-tasks/tree/master/aviasales_frontend
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# To run an application:
 
-## Code scaffolding
+```
+$ git clone git@github.com:ihor-devingfe/aviasales-test.git
+$ cd aviasales-test
+$ npm i
+$ npm start
+```
+Open http://localhost:4200/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Functionality
 
-## Build
+The application receives a list of airline tickets on the server using \
+long polling technique. \
+After that it filters and sorts the flight according to the selected settings \
+and displays the first 5 tickets from the list.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+# Summary
 
-## Running unit tests
+During development, I strengthened my knowledge of components, services, \
+custom pipes and modules. \
+But most importantly - RxJS observables, operators and subjects.\
+It was the hardest to implement repeating server requests, \
+combine filters and sorting parameters with flights list into one stream.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+I understand that perhaps some of the approaches I used are too complex for \
+such a small application. But, I think that the use of such solutions \
+will positively affect the future development of larger projects.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+If you have any comments or suggestions, I would be happy to discuss them.

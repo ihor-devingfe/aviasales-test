@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 
 import {Ticket} from '../../../core/models/ticket.model';
 import {TicketsService} from '../../services/tickets.service';
+import {LoaderService} from '../../../core/services/loader.service';
 
 @Component({
   selector: 'app-tickets',
@@ -12,8 +13,12 @@ import {TicketsService} from '../../services/tickets.service';
 })
 export class TicketsComponent {
   tickets$: Observable<Ticket[]> = this.ticketsService.tickets;
+  isShowing$: Observable<boolean> = this.loaderService.isShowing;
 
-  constructor(private ticketsService: TicketsService) {
+  constructor(
+    private ticketsService: TicketsService,
+    private loaderService: LoaderService
+  ) {
     this.ticketsService.getAllTickets();
   }
 

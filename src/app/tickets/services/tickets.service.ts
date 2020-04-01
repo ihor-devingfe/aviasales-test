@@ -1,16 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject, throwError} from 'rxjs';
-import {
-  catchError,
-  concatMap,
-  debounceTime,
-  distinctUntilChanged,
-  pluck,
-  repeat,
-  switchMap,
-  takeWhile,
-  tap
-} from 'rxjs/operators';
+import {catchError, concatMap, pluck, repeat, switchMap, takeWhile, tap} from 'rxjs/operators';
 
 import {TicketsApiService} from '../../core/services/tickets-api.service';
 import {Ticket} from '../../core/models/ticket.model';
@@ -31,12 +21,10 @@ export class TicketsService {
   private ticketsSubject: Subject<Ticket[]> = new Subject<Ticket[]>();
   private allTickets: Ticket[] = [];
 
-  private aggregation = combineLatest([
+  private aggregation: Observable<Ticket[]> = combineLatest([
     this.filteringSubject.asObservable(),
     this.sortingSubject.asObservable()
   ]).pipe(
-    debounceTime(500),
-    distinctUntilChanged(),
     switchMap(([transfers, sortingParam]) => {
       const filtered = this.filteringPipe.transform(this.allTickets, transfers);
       return of(this.sortingPipe.transform(filtered, sortingParam).splice(0, 5));
@@ -63,7 +51,7 @@ export class TicketsService {
           }),
           pluck('tickets'),
           tap(tickets => this.allTickets = [...this.allTickets, ...tickets]),
-        )
+        ),
       ),
     ).subscribe({
       complete: () => {

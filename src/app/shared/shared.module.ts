@@ -6,6 +6,7 @@ import {AppJoinPipe} from './pipes/app-join.pipe';
 import {AppCurrencyPipe} from './pipes/app-currency.pipe';
 import {AppFilteringPipe} from './pipes/app-filtering.pipe';
 import {AppSortingPipe} from './pipes/app-sorting.pipe';
+import {LoaderComponent} from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {AppSortingPipe} from './pipes/app-sorting.pipe';
     AppJoinPipe,
     AppCurrencyPipe,
     AppFilteringPipe,
-    AppSortingPipe
+    AppSortingPipe,
+    LoaderComponent
   ],
   imports: [
     CommonModule
@@ -23,7 +25,8 @@ import {AppSortingPipe} from './pipes/app-sorting.pipe';
     AppJoinPipe,
     AppCurrencyPipe,
     AppFilteringPipe,
-    AppSortingPipe
+    AppSortingPipe,
+    LoaderComponent
   ],
   providers: [
     AppFilteringPipe,

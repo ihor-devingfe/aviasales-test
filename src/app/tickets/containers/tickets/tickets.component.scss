@@ -4,6 +4,10 @@ li {
   }
 }
 
+app-loader {
+  grid-area: list;
+}
+
 .tickets {
   padding-top: 27px;
   display: grid;

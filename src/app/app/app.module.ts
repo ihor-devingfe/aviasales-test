@@ -8,6 +8,7 @@ import {AppComponent} from './containers/app/app.component';
 import {LogoComponent} from './components/logo/logo.component';
 import {AppRoutingModule} from './app.routing-module';
 import {SharedModule} from '../shared/shared.module';
+import {httpInterceptorProviders} from '../core/interceptors/interceptors';
 
 registerLocaleData(ruLocale, 'ru');
 
@@ -22,7 +23,7 @@ registerLocaleData(ruLocale, 'ru');
     AppRoutingModule,
     SharedModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {

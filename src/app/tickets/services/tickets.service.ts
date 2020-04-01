@@ -63,7 +63,8 @@ export class TicketsService {
           }),
           pluck('tickets'),
           tap(tickets => this.allTickets = [...this.allTickets, ...tickets]),
-        )),
+        )
+      ),
     ).subscribe({
       complete: () => {
         this.aggregation.subscribe(
@@ -80,5 +81,4 @@ export class TicketsService {
   sortTickets(sortingParam: string): void {
     this.sortingSubject.next(sortingParam);
   }
-
 }

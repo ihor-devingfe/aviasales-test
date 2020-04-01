@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
-const DEFAULT_CONFIG = {
-  any: true,
+const DEFAULT_TRANSFERS = {
+  all: true,
   0: true,
   1: true,
   2: true,
@@ -18,33 +18,52 @@ const DEFAULT_CONFIG = {
 export class TransferFilterComponent {
   @Output() filtering: EventEmitter<number[]> = new EventEmitter();
 
-  transfers: FormGroup = this.fb.group(DEFAULT_CONFIG);
+  transfers: FormGroup = this.fb.group(DEFAULT_TRANSFERS);
 
   constructor(private fb: FormBuilder) {
   }
 
-  private updateCheckboxes({target}): void {
-    const controlName = target.getAttribute('formControlName');
+  private checkAllTransfers(): void {
+    this.transfers.patchValue(DEFAULT_TRANSFERS);
+  }
 
-    if (controlName === 'any') {
-      if (!this.transfers.get('any').value) {
-        this.transfers.patchValue({
-          any: false,
-          0: false,
-          1: false,
-          2: false,
-          3: false,
-        });
+  private uncheckAllTransfers(): void {
+    this.transfers.patchValue({all: false, 0: false, 1: false, 2: false, 3: false});
+  }
+
+  private get isZeroTransfersChecked(): boolean {
+    return this.transfers.get('0').value;
+  }
+
+  private sumOfTransfers(transfersState): number {
+    return Object.entries(transfersState)
+      .map(control => {
+        if (+control[0] > 0 && control[1]) {
+          return +control[0];
+        }
+      })
+      .filter(num => isFinite(num))
+      .reduce((acc, curr) => acc + curr, 0);
+  }
+
+  private get isAllTransfersChecked(): boolean {
+    return this.sumOfTransfers(this.transfers.value)
+      === this.sumOfTransfers(DEFAULT_TRANSFERS)
+      && this.isZeroTransfersChecked;
+  }
+
+  private updateCheckboxes({target}): void {
+    if (target.getAttribute('formControlName') === 'all') {
+      if (this.transfers.get('all').value) {
+        this.checkAllTransfers();
       } else {
-        this.transfers.patchValue(DEFAULT_CONFIG);
+        this.uncheckAllTransfers();
       }
     } else {
-      if (Object.values(this.transfers.value).filter(value => !value).length === 1) {
-        if (this.transfers.get('any').value) {
-          this.transfers.patchValue({any: false});
-        } else {
-          this.transfers.patchValue({any: true});
-        }
+      if (this.isAllTransfersChecked) {
+        this.checkAllTransfers();
+      } else {
+        this.transfers.patchValue({all: false});
       }
     }
   }

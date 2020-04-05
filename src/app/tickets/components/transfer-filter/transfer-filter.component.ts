@@ -23,16 +23,32 @@ export class TransferFilterComponent {
   constructor(private fb: FormBuilder) {
   }
 
+  private get isZeroTransfersChecked(): boolean {
+    return this.transfers.get('0').value;
+  }
+
+  private get isAllTransfersChecked(): boolean {
+    return this.sumOfTransfers(this.transfers.value)
+      === this.sumOfTransfers(DEFAULT_TRANSFERS)
+      && this.isZeroTransfersChecked;
+  }
+
+  onChange(event): void {
+    this.updateCheckboxes(event);
+
+    const filters = Object.keys(this.transfers.value)
+      .filter(key => this.transfers.value[key] && !isNaN(+key))
+      .map(value => +value);
+
+    this.filtering.emit(filters);
+  }
+
   private checkAllTransfers(): void {
     this.transfers.patchValue(DEFAULT_TRANSFERS);
   }
 
   private uncheckAllTransfers(): void {
     this.transfers.patchValue({all: false, 0: false, 1: false, 2: false, 3: false});
-  }
-
-  private get isZeroTransfersChecked(): boolean {
-    return this.transfers.get('0').value;
   }
 
   private sumOfTransfers(transfersState): number {
@@ -44,12 +60,6 @@ export class TransferFilterComponent {
       })
       .filter(num => isFinite(num))
       .reduce((acc, curr) => acc + curr, 0);
-  }
-
-  private get isAllTransfersChecked(): boolean {
-    return this.sumOfTransfers(this.transfers.value)
-      === this.sumOfTransfers(DEFAULT_TRANSFERS)
-      && this.isZeroTransfersChecked;
   }
 
   private updateCheckboxes({target}): void {
@@ -66,15 +76,5 @@ export class TransferFilterComponent {
         this.transfers.patchValue({all: false});
       }
     }
-  }
-
-  onChange(event): void {
-    this.updateCheckboxes(event);
-
-    const filters = Object.keys(this.transfers.value)
-      .filter(key => this.transfers.value[key] && !isNaN(+key))
-      .map(value => +value);
-
-    this.filtering.emit(filters);
   }
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject, throwError} from 'rxjs';
-import {catchError, concatMap, pluck, repeat, switchMap, takeWhile, tap} from 'rxjs/operators';
+import {catchError, concatMap, pluck, reduce, repeat, switchMap, takeWhile} from 'rxjs/operators';
 
 import {TicketsApiService} from '../../core/services/tickets-api.service';
 import {Ticket} from '../../core/models/ticket.model';
@@ -9,29 +9,25 @@ import {TicketsResponse} from '../../core/models/tickets-response.model';
 import {AppSortingPipe} from '../../shared/pipes/app-sorting.pipe';
 import {AppFilteringPipe} from '../../shared/pipes/app-filtering.pipe';
 
-export const DEFAULT_TRANSFERS = [0, 1, 2, 3];
-export const DEFAULT_SORTING = 'price';
+const DEFAULT_TRANSFERS = [0, 1, 2, 3];
+const DEFAULT_SORTING = 'price';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TicketsService {
   private filteringSubject: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(DEFAULT_TRANSFERS);
   private sortingSubject: BehaviorSubject<string> = new BehaviorSubject<string>(DEFAULT_SORTING);
   private ticketsSubject: Subject<Ticket[]> = new Subject<Ticket[]>();
+  tickets$: Observable<Ticket[]> = this.ticketsSubject.asObservable();
   private allTickets: Ticket[] = [];
-
-  private aggregation: Observable<Ticket[]> = combineLatest([
+  private aggregation$: Observable<Ticket[]> = combineLatest([
     this.filteringSubject.asObservable(),
     this.sortingSubject.asObservable()
   ]).pipe(
-    switchMap(([transfers, sortingParam]) => {
-      const filtered = this.filteringPipe.transform(this.allTickets, transfers);
-      return of(this.sortingPipe.transform(filtered, sortingParam).splice(0, 5));
+    concatMap(([transfers, sortingParam]) => {
+      const filteredTickets = this.filteringPipe.transform(this.allTickets, transfers);
+      return of(this.sortingPipe.transform(filteredTickets, sortingParam).slice(0, 5));
     })
   );
-
-  tickets: Observable<Ticket[]> = this.ticketsSubject.asObservable();
 
   constructor(
     private ticketsApiService: TicketsApiService,
@@ -42,7 +38,7 @@ export class TicketsService {
 
   getAllTickets(): void {
     this.ticketsApiService.getSearchId().pipe(
-      concatMap((searchId: SearchId) => this.ticketsApiService.getAllTickets(searchId)
+      switchMap((searchId: SearchId) => this.ticketsApiService.getAllTickets(searchId)
         .pipe(
           repeat(),
           takeWhile(({stop}: TicketsResponse) => !stop),
@@ -50,16 +46,10 @@ export class TicketsService {
             return error.status === 500 ? response : throwError(error);
           }),
           pluck('tickets'),
-          tap(tickets => this.allTickets = [...this.allTickets, ...tickets]),
+          reduce((acc, curr) => [...acc, ...curr], [])
         ),
       ),
-    ).subscribe({
-      complete: () => {
-        this.aggregation.subscribe(
-          aggregatedTickets => this.ticketsSubject.next(aggregatedTickets)
-        );
-      }
-    });
+    ).subscribe(this.onSearchEnd);
   }
 
   filterTickets(transfers: number[]): void {
@@ -68,5 +58,10 @@ export class TicketsService {
 
   sortTickets(sortingParam: string): void {
     this.sortingSubject.next(sortingParam);
+  }
+
+  private onSearchEnd = (tickets: Ticket[]): void => {
+    this.allTickets = tickets;
+    this.aggregation$.subscribe(aggregatedTickets => this.ticketsSubject.next(aggregatedTickets));
   }
 }

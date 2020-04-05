@@ -11,7 +11,7 @@
     ></app-sorting>
   </div>
 
-  <app-loader *ngIf="isShowing$ | async"></app-loader>
+  <app-loader *ngIf="isLoading$ | async"></app-loader>
   <ul class="list">
     <li *ngFor="let ticket of tickets$ | async">
       <app-ticket

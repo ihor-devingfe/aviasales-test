@@ -9,11 +9,12 @@ import {LoaderService} from '../../../core/services/loader.service';
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.scss'],
+  providers: [TicketsService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TicketsComponent {
-  tickets$: Observable<Ticket[]> = this.ticketsService.tickets;
-  isShowing$: Observable<boolean> = this.loaderService.isShowing;
+  tickets$: Observable<Ticket[]> = this.ticketsService.tickets$;
+  isLoading$: Observable<boolean> = this.loaderService.isLoading$;
 
   constructor(
     private ticketsService: TicketsService,

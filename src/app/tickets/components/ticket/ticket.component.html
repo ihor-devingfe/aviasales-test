@@ -1,6 +1,6 @@
 <table class="ticket">
   <tr>
-    <td colspan="2" class="price">{{ticket.price | appCurrency}}</td>
+    <td colspan="2" class="price">{{ticket.price | number: null: 'ru'}} Р</td>
     <td><img src="{{CDN + ticket.carrier + '.png'}}" alt="{{ticket.carrier}} logo"></td>
   </tr>
 

@@ -5,7 +5,7 @@
   </tr>
 
   <tr>
-    <th>{{ticket.segments[0].destination}} - {{ticket.segments[1].destination}}</th>
+    <th>{{ticket.segments[0].origin}} - {{ticket.segments[0].destination}}</th>
     <th>В пути</th>
     <th>{{ticket.segments[0].stops.length | i18nPlural : pluralMap}}</th>
   </tr>
@@ -17,7 +17,7 @@
   </tr>
 
   <tr>
-    <th>{{ticket.segments[1].destination}} - {{ticket.segments[1].destination}}</th>
+    <th>{{ticket.segments[1].origin}} - {{ticket.segments[1].destination}}</th>
     <th>В пути</th>
     <th>{{ticket.segments[1].stops.length | i18nPlural : pluralMap}}</th>
   </tr>

@@ -41,12 +41,12 @@ export class TicketsService {
       switchMap((searchId: SearchId) => this.ticketsApiService.getAllTickets(searchId)
         .pipe(
           repeat(),
-          takeWhile(({stop}: TicketsResponse) => !stop),
+          takeWhile(({stop}: TicketsResponse) => !stop, true),
           catchError((error, response: Observable<TicketsResponse>) => {
             return error.status === 500 ? response : throwError(error);
           }),
           pluck('tickets'),
-          reduce((acc, curr) => [...acc, ...curr], [])
+          reduce((acc, tickets) => [...acc, ...tickets], []),
         ),
       ),
     ).subscribe(this.onSearchEnd);

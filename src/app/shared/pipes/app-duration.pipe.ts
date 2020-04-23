@@ -16,8 +16,10 @@ export class AppDurationPipe implements PipeTransform {
       return `${hours}ч`;
     }
 
-    if (minutes) {
-      return `${minutes}мин`;
+    if (minutes <= 0) {
+      return '0мин';
     }
+
+    return `${minutes}мин`;
   }
 }

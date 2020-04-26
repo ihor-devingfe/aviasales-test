@@ -21,16 +21,14 @@ describe('LoaderService', () => {
   describe('showLoader()', () => {
     it('should publish "true" to show loader', () => {
       service.showLoader();
-
       service.isLoading$.subscribe(loading => expect(loading).toBeTrue());
     });
   });
 
 
-  describe('showLoader()', () => {
+  describe('hideLoader()', () => {
     it('should publish "false" to hide loader', () => {
       service.hideLoader();
-
       service.isLoading$.subscribe(loading => expect(loading).toBeFalse());
     });
   });

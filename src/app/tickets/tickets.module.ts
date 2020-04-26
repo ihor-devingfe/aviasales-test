@@ -21,7 +21,7 @@ import {SharedModule} from '../shared/shared.module';
     TicketsRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
 })
 export class TicketsModule {
